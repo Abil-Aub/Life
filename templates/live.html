@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+    <a class="btn btn-warning home" href="{{ url_for('index') }}">Домой</a>
+    <a class="btn btn-info refresh" href="{{ url_for('live') }}">Заново</a>
+
+    <br>
+
+    <table>
+        {% for i in height %}
+            <tr>
+                {% for j in width %}
+                    {% if world[i][j] %}
+                        <td class="cell living-cell"></td>
+                    {% elif old_world[i][j] and not world[i][j] %}
+                        <td class="cell dead-cell"></td>
+                    {% else %}
+                        <td class="cell"></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="counter">{{ counter }}</div>
+{% endblock %}
+
+
+{% block script %}
+    {{ super() }}
+
+    <script>
+        setInterval(() => window.location.reload(), 1000);
+    </script>
+{% endblock %}
